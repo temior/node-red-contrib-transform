@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    RED.nodes.registerType('transform', {
+        category: 'function',
+        color: '#c7e9c0',
+        defaults: {
+            name: {
+                value: ''
+            },
+            template: {
+                value: '{	   "topic": topic,	   "payload": payload	}',
+                required: true
+            },
+            outputs: {
+                value: 1,
+                required: true
+            }
+        },
+        inputs: 1,
+        icon: 'swap.svg',
+        label: function () {
+            return this.name || 'transform';
+        },
+        oneditprepare: function () {
+            $('#node-input-template').typedInput({ type: 'jsonata', types: ['jsonata'] });
+            $("#node-input-outputs").spinner({ min: 1 });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="transform">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" style="width: 340px;" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-template"> Template</label>
+        <input type="text" id="node-input-template">
+    </div>
+    <div class="form-row" style="position: absolute; bottom: -4px;" >
+        <label for="node-input-outputs"><i class="fa fa-arrow-circle-right"></i> Outputs</label>
+        <input style="width: 60px;" id="node-input-outputs">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="transform">
+    <p>JSONata message transformation.</p>
+</script>

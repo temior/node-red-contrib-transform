@@ -1,0 +1,12 @@
+{
+  "name": "node-red-contrib-transform",
+  "version": "1.0.19",
+  "description": "JSONata message transformation.",
+  "author": "temior",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "transform": "transform.js"
+    }
+  }
+}
