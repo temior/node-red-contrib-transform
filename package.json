@@ -4,6 +4,9 @@
   "description": "JSONata message transformation.",
   "author": "temior",
   "license": "ISC",
+  "keywords": [
+    "node-red"
+  ],
   "node-red": {
     "nodes": {
       "transform": "transform.js"
