@@ -12,7 +12,7 @@ npm install node-red-contrib-transform
 
 Just enter the template as a valid [JSONata](https://jsonata.org/) expression and enjoy the transformation. 
 
-### Template example:
+#### Template example:
 
 ```javascript
 {
@@ -21,7 +21,7 @@ Just enter the template as a valid [JSONata](https://jsonata.org/) expression an
 }
 ```
 
-### Multiple outputs/messages supported as well:
+#### Multiple outputs/messages supported as well:
 
 ```javascript
 [
