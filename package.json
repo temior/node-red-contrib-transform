@@ -11,5 +11,9 @@
     "nodes": {
       "transform": "transform.js"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/temior/node-red-contrib-transform.git"
   }
 }
