@@ -8,7 +8,10 @@
             },
             template: {
                 value: '{	   "topic": topic,	   "payload": payload	}',
-                required: true
+                required: false
+            },
+            templateType: {
+                value: 'jsonata'
             },
             outputs: {
                 value: 1,
@@ -21,7 +24,11 @@
             return this.name || 'transform';
         },
         oneditprepare: function () {
-            $('#node-input-template').typedInput({ type: 'jsonata', types: ['jsonata'] });
+            $('#node-input-template').typedInput({
+                type: 'jsonata',
+                types: ['jsonata', 'msg', 'flow', 'global', 'env'],
+                typeField: "#node-input-templateType"
+            });
             $("#node-input-outputs").spinner({ min: 1 });
         }
     });
@@ -35,6 +42,7 @@
     <div class="form-row">
         <label for="node-input-template"> Template</label>
         <input type="text" id="node-input-template">
+        <input type="hidden" id="node-input-templateType">
     </div>
     <div class="form-row" style="position: absolute; bottom: -4px;" >
         <label for="node-input-outputs"><i class="fa fa-arrow-circle-right"></i> Outputs</label>

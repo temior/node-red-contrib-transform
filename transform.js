@@ -16,6 +16,7 @@ module.exports = function (RED) {
     }
 
     function transform(message, expression) {
+       
         const result = RED.util.evaluateJSONataExpression(expression, message);
 
         if (!isFlowPacket(result)) {
@@ -28,13 +29,23 @@ module.exports = function (RED) {
     function TransformNode(config) {
         RED.nodes.createNode(this, config);
 
-        const expression = build(config.template, this);
+        const nodeExpression = config.template;
+        const node = this;
 
         this.on('input', (message, send, done) => {
             let error, result;
+            const expression = message.template || nodeExpression;
+
+            if (!expression) {
+                error = {
+                    message: 'No template specified'
+                }
+                done(error);
+            }
 
             try {
-                result = transform(message, expression);
+                const preparedExpression = build(expression, node);
+                result = transform(message, preparedExpression);
             } catch (e) {
                 error = e.message;
             }

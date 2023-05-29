@@ -1,11 +1,17 @@
 {
   "name": "node-red-contrib-transform",
-  "version": "1.0.20",
+  "version": "1.1.0",
   "description": "JSONata message transformation.",
-  "author": "temior",
+  "contributors": [
+    "temior",
+    "Gilbert Gonzalez <gb@autanalabs.com>"
+  ],
   "license": "ISC",
   "keywords": [
-    "node-red"
+    "node-red",
+    "autana",
+    "transform",
+    "JSONata"
   ],
   "node-red": {
     "nodes": {
