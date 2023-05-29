@@ -26,15 +26,25 @@ module.exports = function (RED) {
         return result;
     }
 
+    function getConfiguredTemplateValue(node, msg, exp, expType) {
+        if (expType == 'jsonata') {
+            return exp;
+        } else {
+            return RED.util.evaluateNodeProperty(exp, expType, node, msg);
+        }
+    }
+
     function TransformNode(config) {
         RED.nodes.createNode(this, config);
 
         const nodeExpression = config.template;
+        const nodeExpressionType = config.templateType;
         const node = this;
 
         this.on('input', (message, send, done) => {
             let error, result;
-            const expression = message.template || nodeExpression;
+            const expression = message.template
+                || getConfiguredTemplateValue(node, message, nodeExpression, nodeExpressionType);
 
             if (!expression) {
                 error = {
