@@ -13,6 +13,14 @@
             templateType: {
                 value: 'jsonata'
             },
+            target: {
+                value: 'payload',
+                required: true
+            },
+            targetType: {
+                value: 'msg',
+                required: true
+            },
             outputs: {
                 value: 1,
                 required: true
@@ -29,6 +37,11 @@
                 types: ['jsonata', 'msg', 'flow', 'global', 'env'],
                 typeField: "#node-input-templateType"
             });
+            $('#node-input-target').typedInput({
+                type: 'msg',
+                types: ['msg', 'flow', 'global'],
+                typeField: "#node-input-targetType"
+            });
             $("#node-input-outputs").spinner({ min: 1 });
         }
     });
@@ -43,6 +56,11 @@
         <label for="node-input-template"> Template</label>
         <input type="text" id="node-input-template">
         <input type="hidden" id="node-input-templateType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-target"> Target</label>
+        <input type="text" id="node-input-target">
+        <input type="hidden" id="node-input-targetType">
     </div>
     <div class="form-row" style="position: absolute; bottom: -4px;" >
         <label for="node-input-outputs"><i class="fa fa-arrow-circle-right"></i> Outputs</label>

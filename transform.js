@@ -16,12 +16,14 @@ module.exports = function (RED) {
     }
 
     function transform(message, expression) {
-       
+
         const result = RED.util.evaluateJSONataExpression(expression, message);
 
+        /*
         if (!isFlowPacket(result)) {
             throw new Error('The transformation result has an invalid structure.');
         }
+        */
 
         return result;
     }
@@ -39,6 +41,8 @@ module.exports = function (RED) {
 
         const nodeExpression = config.template;
         const nodeExpressionType = config.templateType;
+        const nodeTarget = config.target;
+        const nodeTargetType = config.targetType;
         const node = this;
 
         this.on('input', (message, send, done) => {
@@ -63,7 +67,19 @@ module.exports = function (RED) {
             if (error) {
                 done(error);
             } else {
-                send(result);
+                if (nodeTargetType == 'msg') {
+                    RED.util.setMessageProperty(message, nodeTarget, result, true);
+
+                } else if (nodeTargetType == 'flow') {
+                    var flowContext = this.context().flow;
+                    flowContext.set(nodeTarget, result);
+
+                } else if (nodeTargetType == 'global') {
+                    var globalContext = this.context().global;
+                    globalContext.set(nodeTarget, result);
+                }
+
+                send(message);
                 done();
             }
         });
