@@ -15,36 +15,22 @@ module.exports = function (RED) {
         return RED.util.prepareJSONataExpression(template, node);
     }
 
-    function transform(message, expression) {
-        const result = RED.util.evaluateJSONataExpression(expression, message);
-
-        if (!isFlowPacket(result)) {
-            throw new Error('The transformation result has an invalid structure.');
-        }
-
-        return result;
-    }
-
     function TransformNode(config) {
         RED.nodes.createNode(this, config);
 
         const expression = build(config.template, this);
 
         this.on('input', (message, send, done) => {
-            let error, result;
-
-            try {
-                result = transform(message, expression);
-            } catch (e) {
-                error = e.message;
-            }
-
-            if (error) {
-                done(error);
-            } else {
-                send(result);
-                done();
-            }
+            RED.util.evaluateJSONataExpression(expression, message, (error, result) => {
+                if (error) {
+                    done(error);
+                } else if (!isFlowPacket(result)) {
+                    done(new Error('The transformation result has an invalid structure.'));
+                } else {
+                    send(result);
+                    done();
+                }
+            });
         });
     }
 
